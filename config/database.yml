@@ -21,13 +21,13 @@ default: &default
 
 development:
   <<: *default
-  database: ai_we_ek_mediatracker_development
+  database: ai_week_mediatracker_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: ai_we_ek_mediatracker
+  #username: ai_week_mediatracker
 
   # The password associated with the PostgreSQL role (username).
   #password:
@@ -55,7 +55,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: ai_we_ek_mediatracker_test
+  database: ai_week_mediatracker_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,6 +79,6 @@ test:
 #
 production:
   <<: *default
-  database: ai_we_ek_mediatracker_production
-  username: ai_we_ek_mediatracker
-  password: <%= ENV["AI_WE_EK_MEDIATRACKER_DATABASE_PASSWORD"] %>
+  database: ai_week_mediatracker_production
+  username: ai_week_mediatracker
+  password: <%= ENV["ai_week_mediatracker_DATABASE_PASSWORD"] %>
