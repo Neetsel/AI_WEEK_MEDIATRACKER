@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   # resources
 
-  resources :movies, only: [:show]
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
