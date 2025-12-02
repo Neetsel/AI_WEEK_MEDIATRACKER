@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :seen_movies, only [:create]
   end
 
+  resources :planned_movies, only: [:index]
+
   resources :movies, only: [:show]
   # Defines the root path route ("/")
   # root "posts#index"
