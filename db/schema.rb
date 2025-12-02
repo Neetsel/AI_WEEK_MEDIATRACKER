@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_02_103207) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_02_110558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_02_103207) do
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_chats_on_movie_id"
     t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_likes_on_movie_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -52,31 +61,23 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_02_103207) do
     t.string "studios", default: [], array: true
   end
 
-  create_table "movies_seen_lists", force: :cascade do |t|
+  create_table "planned_movies", force: :cascade do |t|
+    t.bigint "movie_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_movies_seen_lists_on_user_id"
+    t.index ["movie_id"], name: "index_planned_movies_on_movie_id"
+    t.index ["user_id"], name: "index_planned_movies_on_user_id"
   end
 
-  create_table "movies_seens", force: :cascade do |t|
-    t.boolean "liked"
+  create_table "seen_movies", force: :cascade do |t|
+    t.date "consumption_date"
     t.bigint "movie_id", null: false
-    t.bigint "movies_seen_list_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "dates_consumed", default: [], array: true
-    t.index ["movie_id"], name: "index_movies_seens_on_movie_id"
-    t.index ["movies_seen_list_id"], name: "index_movies_seens_on_movies_seen_list_id"
-  end
-
-  create_table "movies_to_watches", force: :cascade do |t|
-    t.bigint "movie_id", null: false
-    t.bigint "watchlist_movies_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["movie_id"], name: "index_movies_to_watches_on_movie_id"
-    t.index ["watchlist_movies_id"], name: "index_movies_to_watches_on_watchlist_movies_id"
+    t.index ["movie_id"], name: "index_seen_movies_on_movie_id"
+    t.index ["user_id"], name: "index_seen_movies_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -91,20 +92,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_02_103207) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "watchlist_movies", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_watchlist_movies_on_user_id"
-  end
-
   add_foreign_key "chats", "movies"
   add_foreign_key "chats", "users"
+  add_foreign_key "likes", "movies"
+  add_foreign_key "likes", "users"
   add_foreign_key "messages", "chats"
-  add_foreign_key "movies_seen_lists", "users"
-  add_foreign_key "movies_seens", "movies"
-  add_foreign_key "movies_seens", "movies_seen_lists"
-  add_foreign_key "movies_to_watches", "movies"
-  add_foreign_key "movies_to_watches", "watchlist_movies", column: "watchlist_movies_id"
-  add_foreign_key "watchlist_movies", "users"
+  add_foreign_key "planned_movies", "movies"
+  add_foreign_key "planned_movies", "users"
+  add_foreign_key "seen_movies", "movies"
+  add_foreign_key "seen_movies", "users"
 end
