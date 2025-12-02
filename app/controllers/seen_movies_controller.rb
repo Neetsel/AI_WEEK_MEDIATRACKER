@@ -1,5 +1,5 @@
 class SeenMoviesController < ApplicationController
-
+  before_action :set_seen_movie, only: [:destroy]
   def create
     @seenMovie = SeenMovie.new(seenMovie_params)
     @seenMovie.save
