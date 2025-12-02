@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Movies you've seen</h1>
+
+  <% @seen_movies.each do |movie| %>
+    <h2><%= movie.title %></h2>
+    <p><%= movie.description %></p>
+    <%= link_to "More details", movie_path(movie), class: "btn btn-primary" %>
+  <% end %>
+
+  <%= link_to "Back to home", "/home", class: "btn btn-primary" %>
+</div>
