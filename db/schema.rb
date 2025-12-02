@@ -10,9 +10,74 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_01_160649) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_02_103207) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chats", force: :cascade do |t|
+    t.string "title"
+    t.bigint "user_id", null: false
+    t.bigint "movie_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_chats_on_movie_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "role"
+    t.string "content"
+    t.bigint "chat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.date "release_date"
+    t.string "language"
+    t.integer "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "genres", default: [], array: true
+    t.string "tags", default: [], array: true
+    t.string "countries", default: [], array: true
+    t.string "directors", default: [], array: true
+    t.string "writers", default: [], array: true
+    t.string "producers", default: [], array: true
+    t.string "cast", default: [], array: true
+    t.string "composers", default: [], array: true
+    t.string "studios", default: [], array: true
+  end
+
+  create_table "movies_seen_lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_movies_seen_lists_on_user_id"
+  end
+
+  create_table "movies_seens", force: :cascade do |t|
+    t.boolean "liked"
+    t.bigint "movie_id", null: false
+    t.bigint "movies_seen_list_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "dates_consumed", default: [], array: true
+    t.index ["movie_id"], name: "index_movies_seens_on_movie_id"
+    t.index ["movies_seen_list_id"], name: "index_movies_seens_on_movies_seen_list_id"
+  end
+
+  create_table "movies_to_watches", force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.bigint "watchlist_movies_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movies_to_watches_on_movie_id"
+    t.index ["watchlist_movies_id"], name: "index_movies_to_watches_on_watchlist_movies_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +91,20 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_01_160649) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "watchlist_movies", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_watchlist_movies_on_user_id"
+  end
+
+  add_foreign_key "chats", "movies"
+  add_foreign_key "chats", "users"
+  add_foreign_key "messages", "chats"
+  add_foreign_key "movies_seen_lists", "users"
+  add_foreign_key "movies_seens", "movies"
+  add_foreign_key "movies_seens", "movies_seen_lists"
+  add_foreign_key "movies_to_watches", "movies"
+  add_foreign_key "movies_to_watches", "watchlist_movies", column: "watchlist_movies_id"
+  add_foreign_key "watchlist_movies", "users"
 end
