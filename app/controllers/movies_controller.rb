@@ -1,12 +1,12 @@
 class MoviesController < ApplicationController
-  befor_action :set_movie, only: [:show]
+  before_action :set_movie, only: [:show]
 
   def show
   end
 
   private
 
-  def set_movies
+  def set_movie
     @movie = Movie.find(params[:id])
   end
 end
