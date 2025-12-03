@@ -1,26 +1,23 @@
 class ChatsController < ApplicationController
-  before_action :redirect_if_already_exist, only: [:create]
+  before_action :set_chat, only: [:show]
 
   def create
-    @user = current_user.id
+    @user = current_user
     @movie = Movie.find(params[:movie_id])
     @title = "#{@movie.title} - chat"
-    @chat = Chat.new(chat_params)
+    @chat = Chat.new(user_id: @user.id, movie_id: @movie.id, title: @title)
 
-    if @chat.save
+    if @chat.save!
       redirect_to chat_path(@chat)
-    else
-      render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
   end
 
   private
 
-  def redirect_if_already_exist
-    redirect_to chat_path(@chat) if @chat
-  end
-
-  def chat_params
-    params.require(:chat).permit(:title, :user_id, :movie_id)
+  def set_chat
+    @chat = Chat.find(params[:id])
   end
 end
