@@ -4,6 +4,7 @@
   <p><%= @movie.description %></p>
 
   <%= button_to "Add to your watchlist", movie_planned_movies_path(@movie), data: { turbo_method:"POST" }, class: "btn btn-success"  %>
+  <%= button_to "Add to your seenlist", movie_seen_movies_path(@movie), data: { turbo_method:"POST" }, class: "btn btn-success"  %>
 
   <%= button_to "Add to your likes", movie_likes_path(@movie), data: { turbo_method: "POST"}, class: "btn btn-danger "%>
 
