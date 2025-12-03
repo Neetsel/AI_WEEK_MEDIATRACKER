@@ -4,14 +4,13 @@
 
   <% if user_signed_in? %>
     You are signed in as <%= current_user.email %>!
+    <div>
+      <%= link_to "Edit my password", edit_user_registration_path %>
+    </div>
+    <div>
+      <%= link_to "Sign out", destroy_user_session_path, data: {turbo_method: :delete}%>
+    </div>
   <% else %>
     You are not signed in!
   <% end %>
-  <div>
-    <%= link_to "Edit my password", edit_user_registration_path %>
-  </div>
-
-  <div>
-    <%= link_to "Sign out", destroy_user_session_path, data: {turbo_method: :delete}%>
-  </div>
 </div>
