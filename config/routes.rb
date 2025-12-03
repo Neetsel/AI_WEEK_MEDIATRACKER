@@ -11,13 +11,14 @@ Rails.application.routes.draw do
   resources :likes, only: [:index, :destroy]
   resources :seen_movies, only: [:index, :destroy]
 
-  resources :planned_movies, only: [:index]
+  resources :planned_movies, only: [:index, :destroy]
 
   resources :chats, only: [:show]
 
   resources :movies, only: [:show, :index] do
     resources :seen_movies, only: [:create]
     resources :chats, only: [:create]
+    resources :planned_movies, only: [:create]
     resources :likes, only: [:create]
 
   end
