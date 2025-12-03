@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :seen_movies, only: [:index, :destroy]
 
-  resources :planned_movies, only: [:index]
+  resources :planned_movies, only: [:index, :destroy]
 
   resources :movies, only: [:show, :index] do
     resources :seen_movies, only: [:create]
