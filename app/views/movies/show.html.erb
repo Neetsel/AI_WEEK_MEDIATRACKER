@@ -2,6 +2,8 @@
   <h1> <%= @movie.title %></h1>
 
   <p><%= @movie.description %></p>
+
+  <%= link_to "Chat about movie", movie_chats_path(@movie.id), method:"POST", class: "btn btn-warning" %>
 </div>
 
 <%= link_to "Back to home", "/home", class: "btn btn-primary" %>
