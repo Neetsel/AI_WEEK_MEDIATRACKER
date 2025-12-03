@@ -1,5 +1,5 @@
 class PlannedMoviesController < ApplicationController
-  berfore_action :set_planned_movie, only: [:destroy]
+  before_action :set_planned_movie, only: [:destroy]
   def index
     @planned_movies = PlannedMovies.all
   end
