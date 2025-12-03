@@ -1,0 +1,9 @@
+<div class="container">
+  <h1>Your likes</h1>
+  <% @likes.each do |like| %>
+    <h2><%= like.title %></h2>
+    <p><%= like.description %></p>
+    <%= link_to "More details", movie_path(movie), class: "btn btn-primary" %>
+  <% end %>
+  <%= link_to "Back to home", root_path, class: "btn btn-primary"%>
+</div>
