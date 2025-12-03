@@ -1,6 +1,6 @@
 class PlannedMoviesController < ApplicationController
   def index
-    @planned_movies = PlannedMovies.all
+    @planned_movies = PlannedMovie.all
   end
 
 end
