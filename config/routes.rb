@@ -13,7 +13,9 @@ Rails.application.routes.draw do
 
   resources :planned_movies, only: [:index, :destroy]
 
-  resources :chats, only: [:show]
+  resources :chats, only: [:show] do
+    resources :messages, only: [:create]
+  end
 
   resources :movies, only: [:show, :index] do
     resources :seen_movies, only: [:create]
