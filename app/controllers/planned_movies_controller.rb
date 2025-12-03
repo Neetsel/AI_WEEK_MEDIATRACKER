@@ -1,7 +1,7 @@
 class PlannedMoviesController < ApplicationController
   before_action :set_planned_movie, only: [:destroy]
   def index
-    @planned_movies = PlannedMovies.all
+    @planned_movies = PlannedMovie.all
   end
 
   def create
