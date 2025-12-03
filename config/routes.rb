@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :planned_movies, only: [:index]
 
-  resources :movies, only: [:show] do
+  resources :movies, only: [:show, :index] do
     resources :seen_movies, only: [:create]
     resources :chats, only: [:create]
   end
