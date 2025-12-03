@@ -1,12 +1,18 @@
 class LikesController < ApplicationController
   before_action :set_like, only: [:destroy]
   def index
-    @likes = Like.all
+    @likes = Like.where(user_id: current_user.id)
   end
 
   def create
-    @like = Like.new(like_params)
-    @like.save
+    @user = current_user
+    @movie = Movie.find(params[:movie_id])
+    @like = Like.new(user_id: @user.id, movie_id: @movie.id)
+    if @like.save
+      redirect_to likes_path, notice: "Movie liked"
+    else
+      render :movies, notice: :unprocessable_entity
+    end
   end
 
   def destroy
