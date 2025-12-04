@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
 
   def create_from_omdb
     omdb = OmdbService.new
-    response = omdb.search_by_title(params[:title])
+    response = omdb.search_by_title(params[:imbd_id])
     if response["Response"] == "True"
       movie = Movie.create(
         title: response["Title"],
@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
         genres: response["Genre"],
         directors: response["Director"],
         description: response["Plot"],
-        # poster_url: response["Poster"]
+        poster: response["Poster"]
       )
       redirect_to movie, notice: "Movie added"
     else
@@ -27,6 +27,16 @@ class MoviesController < ApplicationController
     end
   end
 
+  def search_from_omdb
+    omdb = OmdbService.new
+    response = omdb.search_multiple(params[:title])
+    if response["Response"] == "True"
+      @results = response["Search"]
+    else
+      @results = []
+      flash[:alert] = "no films found."
+    end
+  end
   private
 
   def set_movie
