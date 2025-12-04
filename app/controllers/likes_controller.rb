@@ -18,7 +18,7 @@ class LikesController < ApplicationController
   def destroy
     @user = current_user
     if @like.destroy
-      redirect_to likes_path, notice: "Movie removed from likes"
+      redirect_back(fallback_location: root_path)
     else
       redirect_to likes_path, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class LikesController < ApplicationController
   def set_like
     @like = Like.find(params[:id])
   end
-  
+
   def like_params
     params.require(:like).permit(:movie_id, :user_id)
   end
