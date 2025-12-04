@@ -23,6 +23,11 @@ Rails.application.routes.draw do
     resources :planned_movies, only: [:create]
     resources :likes, only: [:create]
 
+    collection do
+      post :create_from_omdb
+      get :search_from_omdb
+    end
+
   end
   # Defines the root path route ("/")
   # root "posts#index"

@@ -370,6 +370,7 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
+  faraday (~> 2.14)
   font-awesome-sass (~> 6.1)
   importmap-rails
   jbuilder
