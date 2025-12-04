@@ -2,13 +2,15 @@ class MessagesController < ApplicationController
   SYSTEM_PROMPT = "You are an expert cinephile.\n\nI am a movie fan, looking for new movies to watch.\n\nHelp me find new movies with similar genres, themes or people involved in the making of those movies.\n\nAnswer concisely in Markdown."
 
   def create
-    @chat = Chat.find(params[:id])
+    @chat = Chat.find(params[:chat_id])
     @movie = @chat.movie
     @message = Message.new(message_params)
     @message.chat = @chat
     @message.role = "user"
 
     if @message.save
+      @ruby_llm_chat = RubyLLM.chat
+      # build_conversation_history
       response = @ruby_llm_chat.with_instructions(instructions).ask(@message.content)
       @chat.messages.create(role: "assistant", content: response.content)
 
@@ -24,13 +26,14 @@ class MessagesController < ApplicationController
     end
   end
 
+  private
+
   def build_conversation_history
+    @ruby_llm_chat = RubyLLM.chat
     @chat.messages.each do |message|
       @ruby_llm_chat.add_message(message)
     end
   end
-
-  private
 
   def movie_title
     "Here is the title of the movie: #{@movie.title}."
