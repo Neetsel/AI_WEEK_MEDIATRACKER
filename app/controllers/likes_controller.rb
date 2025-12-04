@@ -11,7 +11,7 @@ class LikesController < ApplicationController
     if @like.save
       redirect_to likes_path, notice: "Movie liked"
     else
-      render :movies, notice: :unprocessable_entity
+      render "movies/show", status: :unprocessable_entity, notice: "You can't like a movie twice."
     end
   end
 
@@ -20,7 +20,7 @@ class LikesController < ApplicationController
     if @like.destroy
       redirect_to likes_path, notice: "Movie removed from likes"
     else
-      render :movies, notice: :unprocessable_entity
+      redirect_to likes_path, status: :unprocessable_entity
     end
   end
 
