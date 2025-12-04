@@ -1,0 +1,2 @@
+<%= turbo_stream.append "movies", partial: "movies/movie", locals: { movie: @movie } %>
+<%= turbo_stream.replace "notice", partial: "shared/flashes", locals: { notice: "Movie added" } %>

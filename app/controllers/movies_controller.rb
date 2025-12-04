@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
     response = omdb.search_by_id(params[:imdb_id])
 
     if response["Response"] == "True"
-      movie = Movie.create(
+      @movie = Movie.create(
         title: response["Title"],
         release_date: response["Year"],
         genres: response["Genre"],
@@ -23,7 +23,7 @@ class MoviesController < ApplicationController
         poster: response["Poster"]
       )
       respond_to do |format|
-        format.html { redirect_to movie, notice: "Movie added" }
+        format.html { redirect_to @movie, notice: "Movie added" }
         format.turbo_stream
       end
     else
@@ -37,12 +37,12 @@ class MoviesController < ApplicationController
     response = omdb.search_multiple(params[:title])
 
     @results = response["Response"] == "True" ? response["Search"] : []
+    @movies = Movie.all
 
-    render inline: <<~ERB
-      <turbo-frame id="omdb_results">
-        <%= render partial: "movies/omdb_results", locals: { results: @results } %>
-      </turbo-frame>
-    ERB
+    respond_to do |format|
+      format.turbo_stream
+      format.html { render :index }
+    end
 
   end
 
