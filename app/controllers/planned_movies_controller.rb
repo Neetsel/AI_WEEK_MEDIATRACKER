@@ -17,6 +17,7 @@ class PlannedMoviesController < ApplicationController
 
   def destroy
     @planned_movie.destroy
+    redirect_back(fallback_location: root_path)
   end
 
   private

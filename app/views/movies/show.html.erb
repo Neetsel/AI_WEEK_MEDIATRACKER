@@ -8,13 +8,26 @@
 
   <p><%= @movie.description %></p>
   <div class="mb-3">
-    <%= button_to "Add to your watchlist", movie_planned_movies_path(@movie), data: { turbo_method:"POST" }, class: "btn btn-success mb-1"  %>
-    <%= button_to "Add to your seenlist", movie_seen_movies_path(@movie), data: { turbo_method:"POST" }, class: "btn btn-success mb-1"  %>
+    <% if PlannedMovie.find_by(movie_id: @movie.id, user_id: current_user.id).nil? %>
+      <%= button_to "Add to your watchlist", movie_planned_movies_path(@movie), data: { turbo_method:"POST" }, class: "btn btn-success mb-1"  %>
+    <% else %>
+      <%= link_to "Remove from your watchlist", planned_movie_path(PlannedMovie.find_by(movie_id: @movie.id, user_id: current_user.id)), data: { turbo_method: "DELETE" }, class: "btn btn-danger mb-1"  %>
+    <% end %>
 
-    <%= button_to "Add to your likes", movie_likes_path(@movie), data: { turbo_method: "POST"}, class: "btn btn-danger mb-1"%>
+    <% if SeenMovie.find_by(movie_id: @movie.id, user_id: current_user.id).nil? %>
+      <%= button_to "Add to your seen list", movie_seen_movies_path(@movie), data: { turbo_method:"POST" }, class: "btn btn-success mb-1"  %>
+    <% else %>
+      <%= link_to "Remove from your seen list", seen_movie_path(SeenMovie.find_by(movie_id: @movie.id, user_id: current_user.id)), data: { turbo_method: "DELETE" }, class: "btn btn-danger mb-1"  %>
+    <% end %>
+
+    <% if Like.find_by(movie_id: @movie.id, user_id: current_user.id).nil? %>
+      <%= button_to "Add to your likes", movie_likes_path(@movie), data: { turbo_method: "POST"}, class: "btn btn-success mb-1" %>
+    <% else %>
+      <%= link_to "Remove from your likes", like_path(Like.find_by(movie_id: @movie.id, user_id: current_user.id)), data: { turbo_method: "DELETE" }, class: "btn btn-danger mb-1" %>
+    <% end %>
 
     <% if Chat.find_by(movie_id: @movie.id, user_id: current_user.id).nil? %>
-      <%= link_to "Chat about this movie", movie_chats_path(@movie.id), data: { turbo_method:"POST" }, class: "btn btn-warning" %>
+      <%= link_to "Chat about this movie", movie_chats_path(@movie.id), data: { turbo_method:"POST" }, class: "btn btn-info" %>
     <% else %>
       <%= link_to "Chat about this movie", chat_path(Chat.find_by(movie_id: @movie.id, user_id: current_user.id)), class: "btn btn-info" %>
     <% end %>
