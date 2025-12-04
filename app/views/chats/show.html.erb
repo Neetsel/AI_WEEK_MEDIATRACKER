@@ -1,7 +1,13 @@
 <div class="container">
   <h1> <%= @chat.title %></h1>
 
-  <p><%= @chat.movie %></p>
+  <div id="messages">
+    <%= render "messages/messages", messages:@chat.messages %>
+  </div>
+
+  <div id="new_message_container">
+	  <%= render "messages/form", chat: @chat, message: @message %>
+  </div>
 </div>
 
-<%= link_to "Back to home", "/home", class: "btn btn-primary" %>
+<%= link_to "Back to movies", movies_path, class: "btn btn-primary" %>
