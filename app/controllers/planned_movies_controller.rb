@@ -9,15 +9,23 @@ class PlannedMoviesController < ApplicationController
     @movie = Movie.find(params[:movie_id])
     @planned_movie = PlannedMovie.new(user_id: @user.id, movie_id: @movie.id)
     if @planned_movie.save!
-      redirect_to planned_movies_path, notice: "Movie added to your watchlist!"
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back(fallback_location: root_path) }
+      end
     else
-      redirect_to movies_path, alert: "Could not add movie."
+      # redirect_to movies_path, alert: "Could not add movie."
     end
   end
 
   def destroy
-    @planned_movie.destroy
-    redirect_back(fallback_location: root_path)
+    if @planned_movie.destroy!
+      # redirect_back(fallback_location: root_path)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back(fallback_location: root_path) }
+      end
+    end
   end
 
   private
