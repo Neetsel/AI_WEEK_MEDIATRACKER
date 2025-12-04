@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
     collection do
       post :create_from_omdb
-      get :search_from_omdb
+      post :search_from_omdb
     end
 
   end

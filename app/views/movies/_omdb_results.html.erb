@@ -2,10 +2,10 @@
   <h3>Résultats :</h3>
   <ul>
     <% results.each do |movie| %>
-      <li>
+      <li id="omdb_<%= movie["imdbID"] %>">
         <%= image_tag movie["Poster"], alt: movie["Title"], width: 100 if movie["Poster"] != "N/A" %>
         <strong><%= movie["Title"] %></strong> (<%= movie["Year"] %>)
-        <%= button_to "Add", create_from_omdb_movies_path(imdb_id: movie["imdbID"]), method: :post %>
+        <%= button_to "Add", create_from_omdb_movies_path(imdb_id: movie["imdbID"]), method: :post, data: { turbo_stream: true } %>
       </li>
     <% end %>
   </ul>
