@@ -16,7 +16,12 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like.destroy
+    @user = current_user
+    if @like.destroy
+      redirect_to likes_path, notice: "Movie removed from likes"
+    else
+      render :movies, notice: :unprocessable_entity
+    end
   end
 
   private
