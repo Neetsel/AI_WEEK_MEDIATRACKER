@@ -9,18 +9,22 @@ class LikesController < ApplicationController
     @movie = Movie.find(params[:movie_id])
     @like = Like.new(user_id: @user.id, movie_id: @movie.id)
     if @like.save
-      redirect_to likes_path, notice: "Movie liked"
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back(fallback_location: root_path) }
+      end
     else
-      render "movies/show", status: :unprocessable_entity, notice: "You can't like a movie twice."
+      # render "movies/show", status: :unprocessable_entity, notice: "You can't like a movie twice."
     end
   end
 
   def destroy
     @user = current_user
     if @like.destroy
-      redirect_to likes_path, notice: "Movie removed from likes"
-    else
-      redirect_to likes_path, status: :unprocessable_entity
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back(fallback_location: root_path) }
+      end
     end
   end
 
@@ -28,7 +32,7 @@ class LikesController < ApplicationController
   def set_like
     @like = Like.find(params[:id])
   end
-  
+
   def like_params
     params.require(:like).permit(:movie_id, :user_id)
   end
