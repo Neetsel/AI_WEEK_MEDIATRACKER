@@ -13,6 +13,7 @@ class MessagesController < ApplicationController
       build_conversation_history
       response = @ruby_llm_chat.with_instructions(instructions).ask(@message.content)
       @chat.messages.create(role: "assistant", content: response.content)
+      destroy_old_messages
 
       respond_to do |format|
         format.turbo_stream
@@ -31,6 +32,17 @@ class MessagesController < ApplicationController
   def build_conversation_history
     @chat.messages.each do |message|
       @ruby_llm_chat.add_message(role: message.role, content: message.content)
+    end
+  end
+
+  def destroy_old_messages
+    chat_length = @chat.messages.length
+    amount_to_keep = 10
+    if chat_length > amount_to_keep
+      amount_to_destroy = chat_length - amount_to_keep
+      @chat.messages[0, amount_to_destroy].each do |message|
+        message.destroy
+      end
     end
   end
 

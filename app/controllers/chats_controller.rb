@@ -6,7 +6,7 @@ class ChatsController < ApplicationController
     @movie = Movie.find(params[:movie_id])
     @title = "#{@movie.title} - chat"
     @chat = Chat.new(user_id: @user.id, movie_id: @movie.id, title: @title)
-
+    
     if @chat.save!
       redirect_to chat_path(@chat)
     end
