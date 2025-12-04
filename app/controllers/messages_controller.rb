@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
 
     if @message.save
       @ruby_llm_chat = RubyLLM.chat
-      # build_conversation_history
+      build_conversation_history
       response = @ruby_llm_chat.with_instructions(instructions).ask(@message.content)
       @chat.messages.create(role: "assistant", content: response.content)
 
@@ -29,9 +29,8 @@ class MessagesController < ApplicationController
   private
 
   def build_conversation_history
-    @ruby_llm_chat = RubyLLM.chat
     @chat.messages.each do |message|
-      @ruby_llm_chat.add_message(message)
+      @ruby_llm_chat.add_message(role: message.role, content: message.content)
     end
   end
 
