@@ -3,36 +3,22 @@
 
   <ul>
     <% @movies.each do |movie| %>
-      <li><%= link_to movie.title, movie_path(movie)  %></li>
+      <li id="<%= dom_id(movie) %>">
+        <%= link_to movie.title, movie_path(movie)  %></li>
     <% end %>
   </ul>
 
   <h2>Ajouter un film depuis OMDb</h2>
 
-  <%= form_with url: search_from_omdb_movies_path, method: :get do %>
+  <%= form_with url: search_from_omdb_movies_path, method: :get, data: { turbo_frame: "omdb_results" } do %>
   <%= label_tag :title, "Movie title" %>
   <%= text_field_tag :title %>
   <%= submit_tag "Search" %>
-<% end %>
+  <% end %>
 
-<% if @results.present? %>
-  <h3>Résultats :</h3>
-  <ul>
-    <% @results.each do |movie| %>
-      <li>
-        <%= image_tag movie["Poster"], alt: movie["Title"], width: 100 if movie["Poster"] != "N/A" %>
-        <strong><%= movie["Title"] %></strong> (<%= movie["Year"] %>)
-        <%= button_to "Add", create_from_omdb_movies_path(imdb_id: movie["imdbID"]), data: { turbo_method:"POST" } %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+  <turbo-frame id="omdb_results">
+    <%# Display de la liste de films de l'API %>
+  </turbo-frame>
 
-
-  <%# <%= form_with url: create_from_omdb_movies_path, data: { turbo_method:"POST" } do %>
-    <%# <%= label_tag :title, "Movie title" %>
-    <%# <%= text_field_tag :title %>
-    <%# <%= submit_tag "Ajouter depuis OMDb" %>
-  <%# <% end %>
 
 </div>
