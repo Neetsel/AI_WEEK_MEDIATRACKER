@@ -7,4 +7,12 @@
     <% end %>
   </ul>
 
+  <h2>Ajouter un film depuis OMDb</h2>
+
+  <%= form_with url: create_from_omdb_movies_path, data: { turbo_method:"POST" } do %>
+    <%= label_tag :title, "Titre du film" %>
+    <%= text_field_tag :title %>
+    <%= submit_tag "Ajouter depuis OMDb" %>
+  <% end %>
+
 </div>
