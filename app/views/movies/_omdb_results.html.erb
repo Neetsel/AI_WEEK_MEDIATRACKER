@@ -18,10 +18,10 @@
             <p class="card-text text-muted"><%= movie["Year"] %></p>
 
             <div class="mt-auto">
-              <%= button_to "Add", create_from_omdb_movies_path(imdb_id: movie["imdbID"]),
+              <%= button_to "More details", create_from_omdb_movies_path(imdb_id: movie["imdbID"]),
                     method: :post,
                     data: { turbo_stream: true },
-                    class: "btn btn-primary w-100" %>
+                    class: "btn btn-primary w-100 rounded-pill ms-2" %>
             </div>
           </div>
         </div>

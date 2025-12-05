@@ -30,7 +30,7 @@ class MoviesController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to @movie, notice: "Movie added or already present" }
-        format.turbo_stream
+        format.turbo_stream { redirect_to @movie }
       end
     else
       redirect_to movies_path, alert: "Film not available."
