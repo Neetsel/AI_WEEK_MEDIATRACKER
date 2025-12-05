@@ -1,27 +1,56 @@
 <div class="container">
-    <div class="d-flex justify-content-between mt-3">
-      <h1> <%= @movie.title %></h1>
-      <div class="d-flex align-items-center">
-        <%= link_to "Back to movies", movies_path, class: "btn btn-primary" %>
+  <div class="row mt-3">
+    <div class="d-flex">
+      <div class="banner rounded">
+      <img src="<%= @movie.poster %>" alt="Movie Poster">
+    </div>
+
+    <div class="bg-white ms-3 rounded shadow ms-3 flex-grow-1 p-3">
+      <div class="d-flex justify-content-between mt-3">
+        <h1> <%= @movie.title %></h1>
+        <div class="d-flex">
+          <%= link_to "Back to movies", movies_path, class: "btn btn-flat" %>
+        </div>
       </div>
-    </div>
 
-  <p><%= @movie.description %></p>
-  <div class="mb-3">
-    <div id="like_button">
-      <%= render "shared/buttons/like_button", movie: @movie %>
-    </div>
+      <div class="d-flex">
+        <strong>Release date:</strong><%= @movie.release_date %>
+      </div>
+      <div class="d-flex">
+        <strong>Genres:</strong>
+        <% @movie.genres.each do |genre|%>
+          <%= genre %>
+        <% end %>
+      </div>
+      <div class="d-flex">
+        <strong>Directors:</strong>
+        <% @movie.directors.each do |director|%>
+          <%= director %>
+        <% end %>
+      </div>
 
-    <div id="seen_button">
-      <%= render "shared/buttons/seen_button", movie: @movie %>
     </div>
-
-    <div id="planned_button">
-      <%= render "shared/buttons/planned_button", movie: @movie %>
-    </div>
-
-    <%= render "shared/buttons/chat_button", movie: @movie %>
 
   </div>
+</div>
 
+<div class="container mt-3">
+  <div class="row">
+    <div class="d-flex">
+      <div id="like_button" class="mx-2">
+        <%= render "shared/buttons/like_button", movie: @movie %>
+      </div>
+
+      <div id="seen_button" class="mx-2">
+        <%= render "shared/buttons/seen_button", movie: @movie %>
+      </div>
+
+      <div id="planned_button" class="mx-2">
+        <%= render "shared/buttons/planned_button", movie: @movie %>
+      </div>
+      <div id="chat_button" class="mx-2">
+        <%= render "shared/buttons/chat_button", movie: @movie %>
+      </div>
+    </div>
+  </div>
 </div>
