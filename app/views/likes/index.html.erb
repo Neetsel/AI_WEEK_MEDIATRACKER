@@ -1,12 +1,15 @@
 <div class="container">
   <h1>Your likes</h1>
-  <% @likes.each do |like| %>
-    <h2><%= like.movie.title %></h2>
-    <p><%= like.movie.description %></p>
-    <%= link_to "More details", movie_path(like.movie), class: "btn btn-primary" %>
-    <%= link_to "Delete like", like_path(like), data: {turbo_method: :delete, turbo_confirm: "Are your sure?"}, class: "btn btn-danger text-white"%>
-  <% end %>
-  <div class="mt-3">
-    <%= link_to "Back to home", root_path, class: "btn btn-flat"%>
+  <div class="row">
+    <% @likes.each do |like| %>
+      <div class="col-3 mb-3">
+        <%= link_to movie_path(like.movie) do %>
+          <%= render "shared/cards/movie", movie: like.movie %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
+
+  <%# <%= link_to "Delete like", like_path(like), data: {turbo_method: :delete, turbo_confirm: "Are your sure?"}, class: "btn btn-danger text-white"%>
+
 </div>

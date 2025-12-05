@@ -1,10 +1,12 @@
 <div class="container">
   <h1>Your past conversations</h1>
-  <ul>
+  <div class="row">
     <% current_user.chats.each do |chat| %>
-      <li id="<%= dom_id(chat) %>">
-        <%= link_to chat.title, chat_path(chat) %>
-      </li>
+      <div id="<%= dom_id(chat) %>" class="col-3 mb-3">
+          <%= link_to chat_path(chat) do %>
+            <%= render "shared/cards/movie", movie: chat.movie %>
+          <% end %>
+      </div>
     <% end %>
-  </ul>
+  </div>
 </div>
