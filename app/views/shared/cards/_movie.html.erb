@@ -1,6 +1,4 @@
-<%= link_to movie_path(movie) do %>
-  <%= image_tag movie.poster, alt: movie.title, height: 400  if movie.poster != "N/A" %>
-  <div>
-    <strong><%= movie.title %></strong> (<%= movie.release_date %>)
-  </div>
-<% end %>
+<%= image_tag movie.poster, alt: movie.title, height: 400  if movie.poster != "N/A" %>
+<div>
+  <strong><%= movie.title %></strong><%#  (<%= movie.release_date %><%#)%>
+</div>

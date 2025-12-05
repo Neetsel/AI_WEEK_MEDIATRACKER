@@ -1,11 +1,14 @@
 <div class="container">
   <h1>Movies you've seen</h1>
 
-  <% @seenMovies.each do |seenMovie| %>
-    <h2><%= seenMovie.movie.title %></h2>
-    <p><%= seenMovie.movie.description %></p>
-    <%= link_to "More details", movie_path(seenMovie.movie), class: "btn btn-primary" %>
-  <% end %>
+  <div class="row">
+    <% @seenMovies.each do |seenMovie| %>
+      <div class="col-3 mb-3">
+        <%= link_to movie_path(seenMovie.movie) do %>
+          <%= render "shared/cards/movie", movie: seenMovie.movie %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 
-  <%= link_to "Back to movies", movies_path, class: "btn btn-primary" %>
 </div>

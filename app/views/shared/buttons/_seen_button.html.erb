@@ -1,5 +1,9 @@
 <% if SeenMovie.find_by(movie_id: movie.id, user_id: current_user.id).nil? %>
-  <%= link_to "Add to your seen list", movie_seen_movies_path(movie), data: { turbo_method:"POST" }, class: "btn btn-success text-white rounded-3"  %>
+  <%= link_to movie_seen_movies_path(movie), data: { turbo_method:"POST" } do %>
+    <i class="fa-regular fa-eye"></i>
+  <% end %>
 <% else %>
-  <%= link_to "Remove from your seen list", seen_movie_path(SeenMovie.find_by(movie_id: movie.id, user_id: current_user.id)), data: { turbo_method: "DELETE" }, class: "btn btn-danger text-white rounded-3"  %>
+  <%= link_to seen_movie_path(SeenMovie.find_by(movie_id: movie.id, user_id: current_user.id)), data: { turbo_method: "DELETE" } do %>
+    <i class="fa-solid fa-eye"></i>
+  <% end %>
 <% end %>
