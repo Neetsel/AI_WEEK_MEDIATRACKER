@@ -1,12 +1,8 @@
-<div class="container">
-  <h1>Your likes</h1>
+<div class="container my-5 bg-dark text-light p-5 rounded shadow">
+  <h1 class="mb-4 text-center">Movies you've liked</h1>
   <div class="row">
     <% @likes.each do |like| %>
-      <div class="col-3 mb-3">
-        <%= link_to movie_path(like.movie) do %>
-          <%= render "shared/cards/movie", movie: like.movie %>
-        <% end %>
-      </div>
+        <%= render "shared/cards/movie", movie: like.movie %>
     <% end %>
   </div>
 
