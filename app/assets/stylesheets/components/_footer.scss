@@ -7,10 +7,11 @@
   padding: 0px 50px;
   color: black;
 
-  position: fixed;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
+  margin-top: auto;
 }
 .footer-links {
   display: flex;
