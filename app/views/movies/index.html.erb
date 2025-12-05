@@ -1,19 +1,14 @@
-<div class="container my-5">
+<div class="container my-5 bg-dark text-light p-5 rounded shadow">
   <h1 class="mb-4 text-center">Search for a movie</h1>
 
-  <%= form_with url: search_from_omdb_movies_path, method: :post, data: { turbo_stream: true }, class: "card p-4 shadow-sm" do %>
-    <div class="mb-3">
-      <%= label_tag :title, "Movie title", class: "form-label" %>
-      <%= text_field_tag :title, nil, class: "form-control", placeholder: "Enter a movie title..." %>
-    </div>
-
-    <div class="d-grid">
-      <%= submit_tag "Search" %>
-    </div>
+  <%= form_with url: search_from_omdb_movies_path, method: :post, data: { turbo_stream: true }, class: "input-group shadow-sm" do %>
+    <%= text_field_tag :title, nil, class: "form-control form-control-lg", placeholder: "Enter a movie title..." %>
+    <button class="btn btn-primary btn-lg rounded-pill ms-2" type="submit">
+      <i class="bi bi-search"></i> Search
+    </button>
   <% end %>
 
   <turbo-frame id="omdb_results" class="mt-4">
     <%# Display de la liste de films provenant d'OMDB %>
   </turbo-frame>
-
 </div>
