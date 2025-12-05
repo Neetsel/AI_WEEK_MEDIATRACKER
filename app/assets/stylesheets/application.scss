@@ -30,3 +30,17 @@ body {
 .card-body {
   background-color: #DEE2E6;
 }
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
+a:hover {
+  color: #424242;
+}
+
+.user-message {
+  color: #000000;
+  text-align: center;
+}
