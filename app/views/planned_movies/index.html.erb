@@ -1,11 +1,12 @@
 <div class="container">
   <h1>Your Watchlist</h1>
-
-  <% @planned_movies.each do |planned_movie| %>
-    <h2><%= planned_movie.movie.title %></h2>
-    <p><%= planned_movie.movie.description %></p>
-    <%= link_to "More details", movie_path(planned_movie.movie), class: "btn btn-primary" %>
-  <% end %>
+  <div class="row">
+    <% @planned_movies.each do |planned_movie| %>
+      <div class="col-3 mb-3">
+        <%= render "shared/cards/movie", movie: planned_movie.movie %>
+      </div>
+    <% end %>
+  </div>
 
   <%= link_to "Back to movies", movies_path, class: "btn btn-primary" %>
 </div>
