@@ -1,25 +1,14 @@
-<div class="container">
-  <h1>Movie List</h1>
+<div class="container my-5 bg-dark text-light p-5 rounded shadow">
+  <h1 class="mb-4 text-center">Search for a movie</h1>
 
-  <ul id="movies">
-    <%= render @movies  %>
-    <%# <% @movies.each do |movie| %>
-      <%# <li id="<%= dom_id(movie) %>
-        <%# <%= link_to movie.title, movie_path(movie) </li>  %>
-    <%# <% end %>
-  </ul>
-
-  <h2>Ajouter un film depuis OMDb</h2>
-
-  <%= form_with url: search_from_omdb_movies_path, method: :post, data: { turbo_stream: true } do %>
-  <%= label_tag :title, "Movie title" %>
-  <%= text_field_tag :title %>
-  <%= submit_tag "Search" %>
+  <%= form_with url: search_from_omdb_movies_path, method: :post, data: { turbo_stream: true }, class: "input-group shadow-sm" do %>
+    <%= text_field_tag :title, nil, class: "form-control form-control-lg", placeholder: "Enter a movie title..." %>
+    <button class="btn btn-primary btn-lg rounded-pill ms-2" type="submit">
+      <i class="bi bi-search"></i> Search
+    </button>
   <% end %>
 
-  <turbo-frame id="omdb_results">
+  <turbo-frame id="omdb_results" class="mt-4">
     <%# Display de la liste de films provenant d'OMDB %>
   </turbo-frame>
-
-
 </div>

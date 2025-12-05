@@ -1,14 +1,33 @@
 <% if results.present? %>
-  <h3>Résultats :</h3>
-  <ul>
+  <h3 class="mb-4">Results :</h3>
+
+  <div class="row">
     <% results.each do |movie| %>
-      <li id="omdb_<%= movie["imdbID"] %>">
-        <%= image_tag movie["Poster"], alt: movie["Title"], width: 100 if movie["Poster"] != "N/A" %>
-        <strong><%= movie["Title"] %></strong> (<%= movie["Year"] %>)
-        <%= button_to "Add", create_from_omdb_movies_path(imdb_id: movie["imdbID"]), method: :post, data: { turbo_stream: true } %>
-      </li>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm">
+          <% if movie["Poster"] != "N/A" %>
+            <%= image_tag movie["Poster"], alt: movie["Title"], class: "card-img-top" %>
+          <% else %>
+            <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px;">
+              No Poster
+            </div>
+          <% end %>
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><%= movie["Title"] %></h5>
+            <p class="card-text text-muted"><%= movie["Year"] %></p>
+
+            <div class="mt-auto">
+              <%= button_to "More details", create_from_omdb_movies_path(imdb_id: movie["imdbID"]),
+                    method: :post,
+                    data: { turbo_stream: true },
+                    class: "btn btn-primary w-100 rounded-pill ms-2" %>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
 <% else %>
-  <p>Aucun film trouvé.</p>
+  <div class="alert alert-warning">No movies found</div>
 <% end %>
