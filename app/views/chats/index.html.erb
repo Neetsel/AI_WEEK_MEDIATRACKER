@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Your past conversations</h1>
+  <ul>
+    <% current_user.chats.each do |chat| %>
+      <li id="<%= dom_id(chat) %>">
+        <%= link_to chat.title, chat_path(chat) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

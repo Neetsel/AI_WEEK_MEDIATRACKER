@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :planned_movies, only: [:index, :destroy]
 
-  resources :chats, only: [:show] do
+  resources :chats, only: [:show, :index] do
     resources :messages, only: [:create]
   end
 
@@ -27,7 +27,6 @@ Rails.application.routes.draw do
       post :create_from_omdb
       post :search_from_omdb
     end
-
   end
   # Defines the root path route ("/")
   # root "posts#index"
