@@ -1,6 +1,7 @@
 .navbar-lewagon {
   justify-content: space-between;
   background: white;
+  height: 80px;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -8,6 +9,10 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 120px;
+  width: 100px;
   height: auto;
+}
+
+.nav-link{
+  font-family: "roboto-slab", sans-serif;
 }
