@@ -1,9 +1,8 @@
 
   <div class="card h-100 shadow-sm">
-    <%= image_tag movie.poster, alt: movie.title, class: "card-img-top" %>
-
+    <%# <%= image_tag movie.poster, alt: movie.title, class: "card-img-top" %>
+    <img src="<%= movie.poster %>" alt="Movie Poster">
     <div class="card-body">
       <h5 class="card-title"><%= movie.title %></h5>
     </div>
   </div>
-
