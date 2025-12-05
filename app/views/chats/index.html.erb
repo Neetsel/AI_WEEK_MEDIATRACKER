@@ -1,4 +1,6 @@
-<div class="container my-5 bg-dark text-light p-5 rounded shadow">  <div class="row">
+<div class="container my-5 bg-dark text-light p-5 rounded shadow">
+  <h1 class="mb-4 text-center">Movies you've talked about</h1>
+  <div class="row">
     <% current_user.chats.each do |chat| %>
       <div class="col-md-3 mb-4">
         <div id="<%= dom_id(chat) %>">
