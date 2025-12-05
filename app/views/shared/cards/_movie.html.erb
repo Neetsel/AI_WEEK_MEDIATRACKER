@@ -6,6 +6,7 @@
     <div class="card-body">
       <%= link_to movie_path(movie) do %>
         <h5 class="card-title"><%= movie.title %></h5>
+        <p class="card-text text-muted"><%= movie.year %></p>
       <% end %>
       <div class="d-flex">
         <div id="like_button" class="mx-2">

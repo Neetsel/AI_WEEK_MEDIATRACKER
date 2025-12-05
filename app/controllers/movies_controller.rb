@@ -17,14 +17,22 @@ class MoviesController < ApplicationController
       # Si movie existe déjà, on le récupère(cf.doc active record)
       @movie = Movie.find_or_initialize_by(title: response["Title"])
       # On met à jour les infos si besoin
+
       @movie.assign_attributes(
         title: response["Title"],
-        release_date: response["Year"],
-        genres: response["Genre"],
-        directors: response["Director"],
+        release_date: response["Released"],
+        year: response["Year"],
+        genres: response["Genre"].split(", "),
+        directors: response["Director"].split(", "),
         description: response["Plot"],
-        poster: response["Poster"]
+        writers: response["Writer"].split(", "),
+        cast: response["Actors"].split(", "),
+        poster: response["Poster"],
+        duration: response["Runtime"],
+        countries: response["Country"].split(", "),
+        languages: response["Language"].split(", ")
       )
+
       # On save seulement si c'est un nouveau record
       @movie.save if @movie.new_record? || @movie.changed?
 
