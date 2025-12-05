@@ -14,7 +14,10 @@ class MoviesController < ApplicationController
     response = omdb.search_by_id(params[:imdb_id])
 
     if response["Response"] == "True"
-      @movie = Movie.create(
+      # Si movie existe déjà, on le récupère(cf.doc active record)
+      @movie = Movie.find_or_initialize_by(title: response["Title"])
+      # On met à jour les infos si besoin
+      @movie.assign_attributes(
         title: response["Title"],
         release_date: response["Year"],
         genres: response["Genre"],
@@ -22,8 +25,11 @@ class MoviesController < ApplicationController
         description: response["Plot"],
         poster: response["Poster"]
       )
+      # On save seulement si c'est un nouveau record
+      @movie.save if @movie.new_record? || @movie.changed?
+
       respond_to do |format|
-        format.html { redirect_to @movie, notice: "Movie added" }
+        format.html { redirect_to @movie, notice: "Movie added or already present" }
         format.turbo_stream
       end
     else
