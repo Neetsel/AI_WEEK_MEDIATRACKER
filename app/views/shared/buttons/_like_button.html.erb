@@ -1,5 +1,5 @@
 <% if Like.find_by(movie_id: movie.id, user_id: current_user.id).nil? %>
-  <%= link_to "Add to your likes", movie_likes_path(movie), data: { turbo_method: "POST" }, class: "btn btn-success text-white" %>
+  <%= link_to "Add to your likes", movie_likes_path(movie), data: { turbo_method: "POST" }, class: "btn btn-success text-white rounded-3" %>
 <% else %>
-  <%= link_to "Remove from your likes", like_path(Like.find_by(movie_id: movie.id, user_id: current_user.id)), data: { turbo_method: "DELETE" }, class: "btn btn-danger text-white" %>
+  <%= link_to "Remove from your likes", like_path(Like.find_by(movie_id: movie.id, user_id: current_user.id)), data: { turbo_method: "DELETE" }, class: "btn btn-danger text-white rounded-3" %>
 <% end %>
