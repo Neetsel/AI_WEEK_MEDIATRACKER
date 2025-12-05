@@ -1,5 +1,5 @@
 <div class="container my-5 bg-dark text-light p-5 rounded shadow">
-  <h1 class="mb-4 text-center">Movies you've watched</h1>
+  <h1 class="mb-4 text-center">Movies you've planned to watch</h1>
   <div class="row">
     <% @planned_movies.each do |planned_movie| %>
         <%= render "shared/cards/movie", movie: planned_movie.movie %>
