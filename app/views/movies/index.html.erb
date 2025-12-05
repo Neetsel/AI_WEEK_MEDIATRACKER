@@ -1,5 +1,5 @@
 <div class="container my-5 bg-dark text-light p-5 rounded shadow">
-  <h1 class="mb-4 text-center">Search for a movie</h1>
+  <h1 class="mb-4 text-center">Search for a movie <i class="fa-solid fa-magnifying-glass"></i></h1>
 
   <%= form_with url: search_from_omdb_movies_path, method: :post, data: { turbo_stream: true }, class: "input-group shadow-sm" do %>
     <%= text_field_tag :title, nil, class: "form-control form-control-lg", placeholder: "Enter a movie title..." %>

@@ -1,5 +1,5 @@
 <div class="container my-5 bg-dark text-light p-5 rounded shadow">
-  <h1 class="mb-4 text-center">Movies you've liked</h1>
+  <h1 class="mb-4 text-center">Movies you've liked <i class="fa-regular fa-heart"></i></h1>
   <div class="row">
     <% @likes.each do |like| %>
         <%= render "shared/cards/movie", movie: like.movie %>
