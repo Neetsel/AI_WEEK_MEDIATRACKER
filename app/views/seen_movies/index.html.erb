@@ -1,13 +1,8 @@
-<div class="container">
-  <h1>Movies you've seen</h1>
-
+<div class="container my-5 bg-dark text-light p-5 rounded shadow">
+  <h1 class="mb-4 text-center">Movies you've seen</h1>
   <div class="row">
     <% @seenMovies.each do |seenMovie| %>
-      <div class="col-3 mb-3">
-        <%= link_to movie_path(seenMovie.movie) do %>
-          <%= render "shared/cards/movie", movie: seenMovie.movie %>
-        <% end %>
-      </div>
+        <%= render "shared/cards/movie", movie: seenMovie.movie %>
     <% end %>
   </div>
 
