@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  SYSTEM_PROMPT = "You are an expert cinephile.\n\nI am a movie fan, looking for new movies to watch.\n\nHelp me find new movies with similar genres, themes or people involved in the making of those movies.\n\nAnswer concisely in Markdown."
+  SYSTEM_PROMPT = "You are an expert cinephile.\n\nI am a movie fan, looking for new movies to watch.\n\nHelp me find new movies with similar genres, themes or people involved in the making of those movies. Don't recommend movies that I've seen or plan to see.\n\nAnswer concisely in Markdown."
 
   def create
     @chat = Chat.find(params[:chat_id])
@@ -54,8 +54,39 @@ class MessagesController < ApplicationController
     "Here is the description of the movie: #{@movie.description}."
   end
 
+  def movie_year
+    "Here is the release year of the movie: #{@movie.year}."
+  end
+
+  def list_movies_liked
+    liked_movies_text = "Here is the list of movies I liked and seen: \n"
+    liked_movies = @chat.user.likes
+    for movie in liked_movies
+      liked_movies_text << "#{movie.movie.title} (#{movie.movie.year}) \n"
+    end
+    liked_movies_text
+  end
+
+  def list_movies_seen
+    seen_movies_text = "Here is the list of movies I've seen: "
+    seen_movies = @chat.user.seen_movies
+    for movie in seen_movies
+      seen_movies_text << "#{movie.movie.title} (#{movie.movie.year}) \n"
+    end
+    seen_movies_text
+  end
+
+  def list_movies_planned
+    planned_movies_text = "Here is the list of movies I already plan to see: "
+    planned_movies = @chat.user.planned_movies
+    for movie in planned_movies
+      planned_movies_text << "#{movie.movie.title} (#{movie.movie.year}) \n"
+    end
+    planned_movies_text
+  end
+
   def instructions
-    [SYSTEM_PROMPT, movie_title, movie_description].compact.join("\n\n")
+    [SYSTEM_PROMPT, list_movies_liked, list_movies_seen, list_movies_planned, movie_title, movie_year, movie_description].compact.join("\n\n")
   end
 
   def message_params
